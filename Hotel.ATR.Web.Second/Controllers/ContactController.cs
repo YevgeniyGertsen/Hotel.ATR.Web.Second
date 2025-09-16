@@ -18,8 +18,14 @@ namespace Hotel.ATR.Web.Second.Controllers
         [HttpPost]
         public IActionResult SaveContactForm(ContactForm form)
         {
+            //1
+            ViewBag.Result = "";
+            //2
+            TempData["Result"] = "Ваше сообщение отправлено!";
 
-            return View();
+            return RedirectToAction("Index"); 
+            //return RedirectToAction("Index", "Home");
+            //return View();
         }
     }
 }

@@ -1,18 +1,4 @@
-﻿@model ContactForm
-@{
-    string result = TempData["Result"] != null ? TempData["Result"].ToString()
-                                               : "";
-}
-
-<!-- Google Map Area Start -->
-<div class="google-map-area">
-    <!--  Map Section -->
-    <div id="contacts" class="map-area">
-        <div id="googleMap" style="width:100%;height:600px;filter: grayscale(100%);-webkit-filter: grayscale(100%);"></div>
-    </div>
-</div>
-<!-- Google Map Area End -->
-<!-- Contact Form Area Start -->
+﻿<!-- Contact Form Area Start -->
 <section class="contact-form-area pt-90">
     <div class="container">
         <div class="row">
@@ -38,29 +24,9 @@
                 </div>
             </div>
             <div class="col-md-8">
-                @if (!string.IsNullOrWhiteSpace(result))
-                {
-                    <h4 class="contact-title">@result</h4>
-                }
-                else
-                {
-                    <h4 class="contact-title">send your massage</h4>
-                    <form id="contact-form" action="/contact/SaveContactForm" method="post">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <input type="text" asp-for="name" placeholder="Enter Name">
-                            </div>
-                            <div class="col-md-6">
-                                <input type="email" asp-for="email" placeholder="Enter Email">
-                            </div>
-                            <div class="col-md-12">
-                                <textarea asp-for="message" cols="30" rows="10" placeholder="Message here"></textarea>
-                                <button type="submit" class="default-btn">SUBMIT</button>
-                            </div>
-                        </div>
-                    </form>
-                    <p class="form-messege"></p>
-                }
+                <h4 class="contact-title">Ваше сообщение отправлено</h4>
+                
+                <p class="form-messege"></p>
             </div>
         </div>
     </div>
@@ -142,33 +108,3 @@
     </div>
 </section>
 <!-- Newsletter Area End -->
-
-@section Scripts
-{
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDSLSFRa0DyBj9VGzT7GM6SFbSMcG0YNBM"></script>
-    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-    <script>
-        function initialize() {
-            var mapOptions = {
-                zoom: 15,
-                scrollwheel: false,
-                center: new google.maps.LatLng(23.763494, 90.432226)
-            };
-
-            var map = new google.maps.Map(document.getElementById('googleMap'),
-                mapOptions);
-
-
-            var marker = new google.maps.Marker({
-                position: map.getCenter(),
-                animation: google.maps.Animation.BOUNCE,
-                icon: 'img/map-marker.png',
-                map: map
-            });
-
-        }
-
-        google.maps.event.addDomListener(window, 'load', initialize);
-    </script>
-    <script src="js/main.js"></script>
-}
