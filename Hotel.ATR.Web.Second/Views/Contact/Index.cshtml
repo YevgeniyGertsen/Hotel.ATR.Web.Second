@@ -1,4 +1,6 @@
-﻿<!-- Google Map Area Start -->
+﻿@model ContactForm
+
+<!-- Google Map Area Start -->
 <div class="google-map-area">
     <!--  Map Section -->
     <div id="contacts" class="map-area">
@@ -36,13 +38,13 @@
                 <form id="contact-form" action="/contact/SaveContactForm" method="post">
                     <div class="row">
                         <div class="col-md-6">
-                            <input type="text" name="name" placeholder="Enter Name">
+                            <input type="text" asp-for="name" placeholder="Enter Name">
                         </div>
                         <div class="col-md-6">
-                            <input type="email" name="email" placeholder="Enter Email">
+                            <input type="email" asp-for="email" placeholder="Enter Email">
                         </div>
                         <div class="col-md-12">
-                            <textarea name="message" cols="30" rows="10" placeholder="Message here"></textarea>
+                            <textarea asp-for="message" cols="30" rows="10" placeholder="Message here"></textarea>
                             <button type="submit" class="default-btn">SUBMIT</button>
                         </div>
                     </div>

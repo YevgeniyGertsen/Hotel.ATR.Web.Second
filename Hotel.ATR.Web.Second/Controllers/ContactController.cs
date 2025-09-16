@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Hotel.ATR.Web.Second.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Hotel.ATR.Web.Second.Controllers
 {
@@ -6,12 +7,16 @@ namespace Hotel.ATR.Web.Second.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            ContactForm contact = new ContactForm();
+            contact.name = "Yevgeniy";
+            contact.email = "gersen.e.a@gmail.com";
+
+            return View(contact);
         }
 
-
+        //string name, string email, string message
         [HttpPost]
-        public IActionResult SaveContactForm(string name, string email, string message)
+        public IActionResult SaveContactForm(ContactForm form)
         {
 
             return View();
