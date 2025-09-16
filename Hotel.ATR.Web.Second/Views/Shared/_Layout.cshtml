@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="~/css/responsive.css">
     <script src="~/js/vendor/modernizr-2.8.3.min.js"></script>
 
-    @RenderSection("Styles")
+    @RenderSection("Styles", false)
 </head>
 <body>
 
@@ -82,9 +82,7 @@
     </section>
     <!-- Breadcrumb Area End -->
 
-
     @RenderBody()
-
 
     <!-- Footer Area Start -->
     <footer class="footer-area">
@@ -196,6 +194,6 @@
     <script src="~/js/plugins.js"></script>
     <script src="~/js/main.js"></script>
 
-    @RenderSection("Scripts")
+    @RenderSection("Scripts", false)
 </body>
 </html>

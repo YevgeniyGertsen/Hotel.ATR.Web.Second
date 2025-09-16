@@ -8,5 +8,13 @@ namespace Hotel.ATR.Web.Second.Controllers
         {
             return View();
         }
+
+
+        [HttpPost]
+        public IActionResult SaveContactForm(string name, string email, string message)
+        {
+
+            return View();
+        }
     }
 }
