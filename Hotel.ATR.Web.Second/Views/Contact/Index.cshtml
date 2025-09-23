@@ -45,13 +45,15 @@
                 else
                 {
                     <h4 class="contact-title">send your massage</h4>
-                    <form id="contact-form" action="/contact/SaveContactForm" method="post">
+                    <form id="contact-form" action="/contact/Index" method="post">
                         <div class="row">
                             <div class="col-md-6">
                                 <input type="text" asp-for="name" placeholder="Enter Name">
+                                <span asp-validation-for="name" class="text-danger"></span>
                             </div>
                             <div class="col-md-6">
                                 <input type="email" asp-for="email" placeholder="Enter Email">
+                                <span asp-validation-for="email" class="text-danger"></span>
                             </div>
                             <div class="col-md-12">
                                 <textarea asp-for="message" cols="30" rows="10" placeholder="Message here"></textarea>
@@ -59,7 +61,8 @@
                             </div>
                         </div>
                     </form>
-                    <p class="form-messege"></p>
+
+                    <div asp-validation-summary="All" class="form-messege"></div>
                 }
             </div>
         </div>

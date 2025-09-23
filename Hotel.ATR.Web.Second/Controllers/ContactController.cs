@@ -7,25 +7,26 @@ namespace Hotel.ATR.Web.Second.Controllers
     {
         public IActionResult Index()
         {
-            ContactForm contact = new ContactForm();
-            contact.name = "Yevgeniy";
-            contact.email = "gersen.e.a@gmail.com";
-
-            return View(contact);
+            return View();
         }
 
-        //string name, string email, string message
         [HttpPost]
-        public IActionResult SaveContactForm(ContactForm form)
+        public IActionResult Index(ContactForm form)
         {
-            //1
-            ViewBag.Result = "";
-            //2
-            TempData["Result"] = "Ваше сообщение отправлено!";
+            //if (string.IsNullOrWhiteSpace(form.name))
+            //{
+            //    ModelState.AddModelError("name", "Необходимо укзать имя");
+            //}
 
-            return RedirectToAction("Index"); 
-            //return RedirectToAction("Index", "Home");
-            //return View();
+            if (ModelState.IsValid)
+            {
+                //1
+                ViewBag.Result = "";
+                //2
+                TempData["Result"] = "Ваше сообщение отправлено!";
+            }
+
+            return View();
         }
     }
 }
