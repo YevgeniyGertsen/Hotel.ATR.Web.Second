@@ -1,8 +1,12 @@
+using FluentValidation;
+using Hotel.ATR.Web.Second.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddScoped<IValidator<ContactForm>, ContactFormValidation>();
 
 
 var app = builder.Build();

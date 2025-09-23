@@ -18,12 +18,23 @@ namespace Hotel.ATR.Web.Second.Controllers
             //    ModelState.AddModelError("name", "Необходимо укзать имя");
             //}
 
-            if (ModelState.IsValid)
+            ContactFormValidation rules = new ContactFormValidation();
+            var result = rules.Validate(form);
+
+            if(result.IsValid)
+            //if (ModelState.IsValid)
             {
                 //1
                 ViewBag.Result = "";
                 //2
                 TempData["Result"] = "Ваше сообщение отправлено!";
+            }
+            else
+            {
+                foreach (var item in result.Errors)
+                {
+                    ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+                }
             }
 
             return View();
