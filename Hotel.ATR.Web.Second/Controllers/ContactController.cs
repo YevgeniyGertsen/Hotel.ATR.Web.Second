@@ -4,9 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Hotel.ATR.Web.Second.Controllers
 {
+    [Authorize]
     public class ContactController : Controller
     {
-        [Authorize]
         public IActionResult Index()
         {
             return View();
