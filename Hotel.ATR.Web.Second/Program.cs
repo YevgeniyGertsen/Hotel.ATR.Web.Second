@@ -6,7 +6,8 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews()
+                .AddViewLocalization();
 
 builder.Services.AddScoped<IValidator<ContactForm>, ContactFormValidation>();
 
@@ -24,7 +25,13 @@ builder.Services
     .AddDefaultTokenProviders();
 
 
+builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
 
+var supportedCulture = new[] { "en-US", "kk-KZ", "ru-RU" };
+var localizationOptions = new RequestLocalizationOptions()
+    .SetDefaultCulture("kk-KZ")
+    .AddSupportedCultures(supportedCulture)
+    .AddSupportedUICultures(supportedCulture);
 
 
 var app = builder.Build();
