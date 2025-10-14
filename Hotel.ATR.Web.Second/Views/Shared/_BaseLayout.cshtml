@@ -1,5 +1,5 @@
 ﻿<!doctype html>
-<html class="no-js" lang="en">
+<html class="no-js">
 
 <!-- Mirrored from d29u17ylf1ylz9.cloudfront.net/hotel-atr/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 04 Jul 2018 11:02:55 GMT -->
 <head>
@@ -39,7 +39,11 @@
                         <div class="header-contact">
                             <span class="text-theme">Contact:</span>
                             <span>0088-234-675-827</span>
+
+                            @Html.Partial("_lang")
                         </div>
+
+
                         <div class="header-links">
                             <a href="https://www.facebook.com/"><i class="zmdi zmdi-facebook"></i></a>
                             <a href="https://twitter.com/"><i class="zmdi zmdi-twitter"></i></a>
@@ -215,5 +219,21 @@
     <script src="~/js/jquery.magnific-popup.js"></script>
     <script src="~/js/plugins.js"></script>
     <script src="~/js/main.js"></script>
+
+    <script>
+        $('#cultureList').on('change', function () {
+            $.ajax({
+                url: '/home/Cookie',
+                data: { culture: $(this).val() },
+                dataType: 'json',
+                type: 'POST',
+                success: function (response) {
+                    location.reload();
+                },
+                error: function (xhr, status, error) {
+                }
+            });
+        });
+    </script>
 </body>
 </html>

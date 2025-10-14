@@ -1,7 +1,9 @@
 ﻿using FluentValidation;
 using Hotel.ATR.Web.Second.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,11 +29,22 @@ builder.Services
 
 builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
 
-var supportedCulture = new[] { "en-US", "kk-KZ", "ru-RU" };
-var localizationOptions = new RequestLocalizationOptions()
-    .SetDefaultCulture("kk-KZ")
-    .AddSupportedCultures(supportedCulture)
-    .AddSupportedUICultures(supportedCulture);
+
+builder.Services.Configure<RequestLocalizationOptions>(options =>
+{
+    var suportedCulture = new[]
+    {
+        new CultureInfo("en-US"),
+        new CultureInfo("kk-KZ"),
+        new CultureInfo("ru-RU")
+    };
+
+    options.DefaultRequestCulture = new RequestCulture(culture: "kk-KZ", uiCulture: "kk-KZ");
+    options.SupportedCultures = suportedCulture;
+    options.SupportedUICultures = suportedCulture;
+});
+
+
 
 
 var app = builder.Build();
@@ -42,6 +55,14 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Home/Error");
 }
 app.UseStaticFiles();
+
+var supportedCulture = new[] { "en-US", "kk-KZ", "ru-RU" };
+var localizationOptions = new RequestLocalizationOptions()
+    .SetDefaultCulture("kk-KZ")
+    .AddSupportedCultures(supportedCulture)
+    .AddSupportedUICultures(supportedCulture);
+
+app.UseRequestLocalization(localizationOptions);
 
 app.UseRouting();
 

@@ -1,4 +1,7 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer localizer
+
+@{
     Layout = "_BaseLayout";
 }
 
@@ -693,7 +696,7 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-sm-12 col-xs-12">
                 <div class="newsletter-container">
-                    <h3>NewsLetter Sign-Up</h3>
+                    <h3>@localizer["NewsLetterSignUp"]</h3>
                     <div class="newsletter-form">
                         <form action="#" id="mc-form" class="mc-form fix">
                             <input id="mc-email" type="email" name="email" placeholder="Enter your E-mail">
