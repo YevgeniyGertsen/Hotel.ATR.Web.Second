@@ -1,4 +1,6 @@
-﻿@model Userlogin
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@model Userlogin
+@inject IViewLocalizer lang
 
 <!-- Contact Form Area Start -->
 <section class="contact-form-area pt-90">
@@ -26,20 +28,20 @@
                 </div>
             </div>
             <div class="col-md-8">
-                    <h4 class="contact-title">Log In</h4>
+                    <h4 class="contact-title">@lang["LogIn"]</h4>
                 <form id="contact-form" action="/account/Login" method="post">
                         <div class="row">
                             <div class="col-md-6">
-                                <input type="text" asp-for="UserName" placeholder="Enter UserName">
-                                <span asp-validation-for="UserName" class="text-danger"></span>
+                            <input type="text" asp-for="UserName" placeholder="@lang["EnterUserName"]">
+                            <span asp-validation-for="UserName" class="text-danger"></span>
                             </div>
                             <div class="col-md-6">
                                 <input type="password" asp-for="Password" placeholder="Enter Password">
                                 <span asp-validation-for="Password" class="text-danger"></span>
                             </div>
                             <div class="col-md-12">
-                                <button type="submit" class="default-btn">SUBMIT</button>
-                            </div>
+                            <button type="submit" class="default-btn">@lang["SUBMIT"]</button>
+                        </div>
                         </div>
                     </form>
 

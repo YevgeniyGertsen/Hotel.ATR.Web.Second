@@ -3,6 +3,7 @@ using Hotel.ATR.Web.Second.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -26,9 +27,7 @@ builder.Services
     .AddEntityFrameworkStores<AppIdentityDbContext>()
     .AddDefaultTokenProviders();
 
-
 builder.Services.AddLocalization(options => options.ResourcesPath = "Resources");
-
 
 builder.Services.Configure<RequestLocalizationOptions>(options =>
 {
@@ -44,7 +43,15 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
     options.SupportedUICultures = suportedCulture;
 });
 
+Log.Logger = new LoggerConfiguration()
+    .WriteTo.Console()
+    .WriteTo.File("Log/log.txt", rollingInterval: RollingInterval.Hour)
+    .WriteTo.Seq("http://localhost:5341/")
+    .MinimumLevel.Information()
+    .Enrich.FromLogContext()
+    .CreateLogger();
 
+builder.Host.UseSerilog();
 
 
 var app = builder.Build();

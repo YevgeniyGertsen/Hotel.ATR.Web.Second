@@ -8,11 +8,15 @@ namespace Hotel.ATR.Web.Second.Controllers
     {
         private UserManager<AppUser> _userManager;
         private SignInManager<AppUser> _signInManager;
+        private ILogger<AccountController> _logger;
 
-        public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
+        public AccountController(UserManager<AppUser> userManager, 
+            SignInManager<AppUser> signInManager,
+            ILogger<AccountController> logger)
         {
             _userManager = userManager; 
             _signInManager = signInManager;
+            _logger = logger;
         }
 
         public IActionResult Login()
@@ -23,6 +27,9 @@ namespace Hotel.ATR.Web.Second.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(Userlogin userlogin)
         {
+            _logger.LogInformation("User {UserName} attempted to log in to the system {AuthDate}",
+                userlogin.UserName, DateTime.Now);
+
             AppUser user = await _userManager.FindByEmailAsync(userlogin.UserName);
             if (user != null)
             {
@@ -35,6 +42,16 @@ namespace Hotel.ATR.Web.Second.Controllers
                 {
                     return RedirectToAction("Index", "Home");
                 }
+                else
+                {
+                    _logger.LogError("While attempting to log in, user: {UserName} encountered an error: {ErrorMessage}",
+                         userlogin.UserName, result.ToString());
+                }
+            }
+            else
+            {
+                _logger.LogWarning("User {UserName} not found in the database", 
+                    userlogin.UserName);
             }
 
             ModelState.AddModelError("UserName", "Логин или пароль указаны не верно!");
