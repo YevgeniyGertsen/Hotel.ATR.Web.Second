@@ -7,6 +7,12 @@ namespace Hotel.ATR.Web.Second.Controllers
     [Authorize]
     public class ContactController : Controller
     {
+        private AppDbContext db;
+        public ContactController(AppDbContext db)
+        {
+            this.db = db;
+        }
+
         public IActionResult Index()
         {
             return View();
@@ -15,11 +21,6 @@ namespace Hotel.ATR.Web.Second.Controllers
         [HttpPost]
         public IActionResult Index(ContactForm form)
         {
-            //if (string.IsNullOrWhiteSpace(form.name))
-            //{
-            //    ModelState.AddModelError("name", "Необходимо укзать имя");
-            //}
-
             ContactFormValidation rules = new ContactFormValidation();
             var result = rules.Validate(form);
 
@@ -30,6 +31,9 @@ namespace Hotel.ATR.Web.Second.Controllers
                 ViewBag.Result = "";
                 //2
                 TempData["Result"] = "Ваше сообщение отправлено!";
+
+                db.ContactForms.Add(form);
+                db.SaveChanges();
             }
             else
             {

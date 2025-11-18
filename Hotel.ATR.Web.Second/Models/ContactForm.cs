@@ -4,6 +4,10 @@ namespace Hotel.ATR.Web.Second.Models
 {
     public class ContactForm
     {
+        public int Id { get; set; }
+        public DateTime CreateDate { get; set; }
+
+
         //[Required(ErrorMessage ="Укажите имя")]
         public string name { get; set; }
 

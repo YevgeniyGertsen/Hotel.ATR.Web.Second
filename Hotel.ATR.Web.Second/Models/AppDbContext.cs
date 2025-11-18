@@ -10,6 +10,9 @@ namespace Hotel.ATR.Web.Second.Models
             
         }
 
+        public DbSet<Team> Teams { get; set; }
+        public DbSet<Position> Positions { get; set; }
+        public DbSet<ContactForm> ContactForms { get; set; }
 
     }
 }
