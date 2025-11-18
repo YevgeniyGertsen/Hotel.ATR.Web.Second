@@ -7,6 +7,7 @@ using System.Diagnostics;
 
 namespace Hotel.ATR.Web.Second.Controllers
 {
+    [TimeElapsed]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -22,8 +23,14 @@ namespace Hotel.ATR.Web.Second.Controllers
             _stringLocalizer = stringLocalizer;
         }
 
+       
+        //->> Resource Filter (OnResourceExecuting)
         public async Task<IActionResult> Index()
         {
+            //->>ActionResult (OnActionExecuting)
+
+            //throw new Exception("Test ERROR!!!");
+
             var test = _stringLocalizer["Home"];
 
             //AppUser user = new AppUser();
@@ -32,18 +39,26 @@ namespace Hotel.ATR.Web.Second.Controllers
 
             //var result = await  _userManager.CreateAsync(user, "Gg11011988@");
 
+            //->>ActionResult (OnActionExecuted)
+
+            //-->
             return View();
+            //-->
         }
+        //->> Resource Filter (OnResourceExecuted)
 
         public IActionResult Privacy()
         {
             return View();
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        public IActionResult Error(string ErrorMessage)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View(new ErrorViewModel
+            {
+                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier,
+                ErrorMessage = ErrorMessage
+            });
         }
 
         public JsonResult Cookie(string culture)

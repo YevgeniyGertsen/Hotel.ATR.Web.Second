@@ -9,8 +9,11 @@ using System.Globalization;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews()
-                .AddViewLocalization();
+builder.Services.AddControllersWithViews(options =>
+{
+    options.Filters.Add<GlobalExceptionFilter>();
+})
+.AddViewLocalization();
 
 builder.Services.AddScoped<IValidator<ContactForm>, ContactFormValidation>();
 
@@ -18,8 +21,14 @@ builder.Services.AddScoped<IValidator<ContactForm>, ContactFormValidation>();
 string conn = builder.Configuration.GetConnectionString("DefaultConnection");
 
 //решили зависимость 
-builder.Services.AddDbContext<AppIdentityDbContext>(options => 
+builder.Services.AddDbContext<AppIdentityDbContext>(options =>
 options.UseSqlServer(conn));
+
+
+string conn2 = builder.Configuration.GetConnectionString("BaseConnection");
+builder.Services.AddDbContext<AppDbContext>(options =>
+options.UseSqlServer(conn2));
+
 
 //настройка Identity
 builder.Services
