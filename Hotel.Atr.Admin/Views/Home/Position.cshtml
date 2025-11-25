@@ -1,0 +1,30 @@
+﻿@model List<Position>
+
+<h1>List positions</h1>
+
+<table>
+    <tr>
+        <td>ID</td>
+        <td>NAME</td>
+        <td>CREATE DATE</td>
+        <td></td>
+        <td></td>
+    </tr>
+
+    @foreach (Position item in Model)
+    {
+        <tr>
+            <td>@item.Id</td>
+            <td>@item.Name</td>
+            <td>@item.CreateDate</td>
+            <td>
+                @Html.ActionLink("EDIT", "EditPosition", "Home", new {id = item.Id}) |
+            </td>
+            <td>
+                @Html.ActionLink("DELETE", "DeletePosition", "Home", new { id = item.Id })
+            </td>
+        </tr>
+    }
+</table>
+<hr />
+@Html.ActionLink("ADD", "EditPosition", "Home", new { id = 0 })
